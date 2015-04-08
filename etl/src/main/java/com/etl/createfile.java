@@ -44,13 +44,14 @@ public class createfile
 	    {
 		if(cell.getCellType()==XSSFCell.CELL_TYPE_NUMERIC)
 		{
-		    Line=Line+cell.getNumericCellValue()+"|";
+		    Line=(Line+cell.getNumericCellValue()+"|").trim().replace(" ","");
 		}
 		else
 		{
-		    Line=Line+(String)cell.getStringCellValue().trim()+"|";
+		    Line=Line+(String)cell.getStringCellValue().trim()+"|".replace(" ","");
 		}
 	    }
+	    System.out.println(Line);
 	    writer.write(Line+"\n");
 	}
 
