@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -40,7 +41,7 @@ public class main
 		}
 		catch (Exception e)
 		{
-		    e.printStackTrace();
+		    JOptionPane.showMessageDialog(null,e.getStackTrace());
 		}
 	    }
 	});
@@ -93,16 +94,12 @@ public class main
 		try
 		{
 		    c.create(file);
+		}
+		catch (Exception e1)
+		{
+		    JOptionPane.showMessageDialog(null,e1.getStackTrace());
+		}
 
-		}
-		catch (IOException e1)
-		{
-		    e1.printStackTrace();
-		}
-		catch (InvalidFormatException e1)
-		{
-		    e1.printStackTrace();
-		}
 	    }
 	});
 

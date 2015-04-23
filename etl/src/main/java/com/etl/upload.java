@@ -30,9 +30,10 @@ public class upload implements Runnable
 	progressBar.setStringPainted(true);
 	progressBar.setBounds(14,31,255,28);
 	frame.getContentPane().add(progressBar);
-	frame.setVisible(true);
 	frame.setLocationRelativeTo(null);
 	frame.setResizable(false);
+	frame.setVisible(true);
+
     }
 
     private static void copyfile(String srFile, String dtFile)
@@ -59,7 +60,7 @@ public class upload implements Runnable
 		sublen=len+sublen;
 		percent=(int)(sublen/Total*100);
 		progressBar.setValue((int)percent);
-		System.out.println(percent);
+		// System.out.println(percent);
 	    }
 
 	    in.close();
@@ -98,7 +99,6 @@ public class upload implements Runnable
 	}
 	catch (IOException e)
 	{
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
     }

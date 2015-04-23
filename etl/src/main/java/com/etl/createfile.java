@@ -35,31 +35,37 @@ public class createfile
     {
 	output=new File("D:\\CMF388_"+time+".D");
 	PrintWriter writer=new PrintWriter(output,"MS950");
-	Workbook workbook=WorkbookFactory.create(new File(file.getAbsolutePath()));
-	Sheet sheet=workbook.getSheetAt(0);
-	for(Row row : sheet)
+	try
 	{
-	    Line="";
-	    for(Cell cell : row)
+	    Workbook workbook=WorkbookFactory.create(new File(file.getAbsolutePath()));
+	    Sheet sheet=workbook.getSheetAt(0);
+	    for(Row row : sheet)
 	    {
-		if(cell.getCellType()==XSSFCell.CELL_TYPE_NUMERIC)
+		for(Cell cell : row)
 		{
-		    Line=(Line+cell.getNumericCellValue()+"|").trim().replace(" ","");
+		    if(cell.getCellType()==XSSFCell.CELL_TYPE_NUMERIC)
+		    {
+			Line=(Line+cell.getNumericCellValue()+"|").trim().replace(" ","").replace("null","");
+		    }
+		    else
+		    {
+			Line=Line+(String)cell.getStringCellValue().trim()+"|".replace(" ","").replace("null","");
+		    }
 		}
-		else
-		{
-		    Line=Line+(String)cell.getStringCellValue().trim()+"|".replace(" ","");
-		}
+		writer.write(Line+"\n");
+		Line=null;
 	    }
-	    System.out.println(Line);
-	    writer.write(Line+"\n");
+
+	    writer.close();
+	    JOptionPane.showMessageDialog(null,"轉檔完成"+output.getAbsolutePath());
+	    // 另存新檔動作
+	    savefile();
+	}
+	catch (java.lang.OutOfMemoryError e)
+	{
+	    JOptionPane.showMessageDialog(null,e.getMessage()+"\n筆數太多請分成兩次產生D檔在合併起來");
 	}
 
-	writer.close();
-	JOptionPane.showMessageDialog(null,"轉檔完成"+output.getAbsolutePath());
-
-	// 另存新檔動作
-	savefile();
     }
 
     public void savefile()
@@ -72,7 +78,7 @@ public class createfile
 	}
     }
 
-    public String Number(int value)
+    private String Number(int value)
     {
 	String number=null;
 	if(value<10)
